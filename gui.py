@@ -63,9 +63,14 @@ label.pack()
 plot_button = tk.Button(root, text='Plot GPA', height=3, width=7, command=plot_gpa)
 plot_button.pack(pady=10)
 
+# Function to close window and the plot
+def close_window():
+    plt.close()
+    root.destroy()
+
 # Button to exit pop-up
-exit_button = tk.Button(root, text="Exit", height=3, width=5, command=root.destroy)
+exit_button = tk.Button(root, text="Exit", height=3, width=5, command=close_window)
 exit_button.pack(pady=10)
 
 root.mainloop()
-root.protocol("WM_DELETE_WINDOW", root.destroy)
+root.protocol("WM_DELETE_WINDOW", close_window)
