@@ -31,6 +31,7 @@ if gpa >= 3.5:
 
 # Create pop-up window
 root = tk.Tk()
+root.attributes("-fullscreen", True)
 #root.geometry('500x550')
 root.title("GPA Calculator")
 root['bg'] = '#CDCDC0'
@@ -56,14 +57,14 @@ def plot_gpa():
 
 
 # Table-like Output Display to display output
-label = tk.Label(root, text=output, font=("Helvetica", 14), justify=tk.LEFT)
+label = tk.Label(root, text=output, font=("Helvetica", 14), justify=tk.LEFT, pady=50)
 label.pack()
 
 # Button to plot GPA
 plot_button = tk.Button(root, text='Plot GPA', height=3, width=7, command=plot_gpa)
 plot_button.pack(pady=10)
 
-# Function to close window and the plot
+# Function to close window
 def close_window():
     plt.close()
     root.destroy()
@@ -73,4 +74,4 @@ exit_button = tk.Button(root, text="Exit", height=3, width=5, command=close_wind
 exit_button.pack(pady=10)
 
 root.mainloop()
-root.protocol("WM_DELETE_WINDOW", close_window)
+#root.protocol("WM_DELETE_WINDOW", close_window)

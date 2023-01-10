@@ -9,7 +9,8 @@ Course list can be cleared from terminal using -c
 
 import sys
 # Can change file name directly (if needed) or input from terminal
-filename = sys.argv[1] if len(sys.argv) > 1 else "courses.txt" # <-- CHANGE HERE
+#FILENAME = sys.argv[1] if len(sys.argv) > 1 else "courses.txt" # <-- CHANGE HERE
+FILENAME = "courses.txt"
 
 # Map letter grades to GPA values
 grade_points = {
@@ -36,10 +37,11 @@ courses = []
 def add_course(course, grade, credits):
   courses.append((course, grade, credits))
 
+
 # Function to remove a course from file and list
 # Use in command line with '-r "Course"' ... Example: -r MATH100
 def remove_course(course):
-  with open(filename, "r") as f:
+  with open(FILENAME, "r") as f:
     info = f.readlines()
   
   for i, line in enumerate(info):
@@ -52,7 +54,7 @@ def remove_course(course):
   else:
     print(f"{course} is not in the list.")
   
-  with open(filename, "w") as f:
+  with open(FILENAME, "w") as f:
     f.writelines(info)
 
 
@@ -78,7 +80,7 @@ def clear_courses():
   response = input("Are you sure you want to clear all courses? This will also clear the courses from the courses.txt file. (y/n) ")
   if response == "y":
     courses.clear()
-    with open(filename, "w") as f:
+    with open(FILENAME, "w") as f:
       f.write("")
   else:
     print("Courses were not cleared.")
@@ -89,34 +91,33 @@ def get_courses():
   line_number = 0  # Counter to keep track of line number in case of ouput
   try:
     # Read data from text file
-    with open(filename, "r") as f:
+    with open(FILENAME, "r") as f:
       for line in f:
         line_number += 1  # Increment the line number
         try:
-          course, grade, credits = line.strip().split()
-          add_course(course, grade, credits)
+          course1, grade1, credits1 = line.strip().split()
+          add_course(course1, grade1, credits1)
         except ValueError:
           # Incorrect format in file
           print(f"Error: Invalid course input in line {line_number} of courses.txt. Each line should contain a course name, a grade, and the number of credits, separated by a single space.\nExample: MATH1ZB3 A- 3")
           sys.exit("Fix errors and try again") # Stop reading the file
   except IOError:
-    print("Error: courses.txt does not exist or cannot be opened.")
+    print(f"Error: {FILENAME} does not exist or cannot be opened.")
 
 def main():
   get_courses()
   # Parse command line arguments
-  for i in range(2, len(sys.argv)):
+  for i in range(1, len(sys.argv)):
     if sys.argv[i] == '-a':
       try:
-        course, grade, credits = sys.argv[i+1], sys.argv[i+2], sys.argv[i+3]
-        add_course(course, grade, credits)
-        # Write data to text file
-        with open(filename, "w") as f:
-          for course in courses:
-            course_name = course[0]
-            course_grade = course[1]
-            course_credits = course[2]
-            f.write(f"{course_name} {grade} {credits}\n")
+        arg_course, arg_grade, arg_credits = sys.argv[i+1], sys.argv[i+2], sys.argv[i+3]
+        add_course(arg_course, arg_grade, arg_credits)
+        with open(FILENAME, "w") as f:
+         for course in courses:
+          course_name = course[0]
+          course_grade = course[1]
+          course_credits = course[2]
+          f.write(f"{course_name} {course_grade} {course_credits}\n")
       except ValueError:
         print("Error: Invalid input for adding a course. Please provide a course name, grade, and number of credits, separated by a single space.\nExample: -a MATH1ZB3 A- 3")
     elif sys.argv[i] == '-r':
