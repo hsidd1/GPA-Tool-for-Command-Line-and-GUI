@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #Author: Hamza Siddiqui
 #Date: 2023-01-08
 '''
@@ -8,8 +9,7 @@ Course list can be cleared from terminal using -c
 '''
 
 import sys
-# Can change file name directly (if needed) or input from terminal
-#FILENAME = sys.argv[1] if len(sys.argv) > 1 else "courses.txt" # <-- CHANGE HERE
+#Edit filename if needed
 FILENAME = "courses.txt"
 
 # Map letter grades to GPA values
